@@ -18,15 +18,19 @@ function  addQuestion($db, $tkt_id, $tp_id, $task, $true_ans, $ans1, $ans2, $ans
         $stmt->bindValue('ans5', $ans5, PDO::PARAM_STR);
         $stmt->bindValue('description', $description, PDO::PARAM_STR);
         $stmt->execute();
-        echo "<br>Вопрос успешно добавлен<br>";
-        
+        //echo "<br>Вопрос успешно добавлен<br>";
+
+        $stmt = $db->prepare("SELECT LAST_INSERT_ID();") ;
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_COLUMN);
+        return $result;
+
     } catch (PDOException $e) {
-        echo "<br>Ошибка вставки. Проверьте заполнение полей (типы данных). Поля \"Вопрос\", \"Вариант ответа 1\", \"Вариант ответа 2\", \Номер верного ответаариант ответа 1\", не должны быть пустыми.<br>";
+        echo "<script>alert(Ошибка вставки. Проверьте заполнение полей (типы данных). Поля \"Вопрос\", \"Вариант ответа 1\", \"Вариант ответа 2\", \"Номер верного ответа\", не должны быть пустыми.)</script>";
         echo "You have an error: " . $e->getMessage() . "<br>";
         echo "On line: " . $e->getLine() . "<br>";
     }
 
-    echo var_dump($stmt->errorInfo());
 }
 
 //Вывод вопросов определенного билета
@@ -101,8 +105,7 @@ function editQuestion($db, $q_id, $tkt_id, $tp_id, $task, $true_ans, $ans1, $ans
     }
 }
 
-
-
+//удаление вопроса
 function deleteQuestion($db, $q_id)
 {
         $sql="DELETE FROM questions WHERE q_id=:q_id";

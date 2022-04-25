@@ -1,19 +1,17 @@
 <?php
 try {
     $host = 'localhost';
-    $port = 3306;
+    $port = 3307;
     $dbname = 'testpdd0';
     $dsn = "mysql:host=$host;port=$port;dbname=$dbname";
     $username = 'root';
-    //$passwd = 'root';
+    $passwd = 'root';
     $opt = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 /*         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false, */
     ];
     $db = new PDO($dsn, $username, $passwd, $opt);
-
-
 } 
 catch (PDOException $e)
  { echo $e->getMessage(); }

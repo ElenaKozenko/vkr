@@ -2,20 +2,18 @@
   get_session();
 ?>
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Тренировка</title>
+    <title>Document</title>
 </head>
 <body>
-<div>
-    <?php get_header(); ?>
- <br>
-</div>
 <?php
+    get_header(); 
+
     include 'db.php';
     include 'api.php';
 
@@ -25,8 +23,8 @@
     echo $name; //название билета
 
     $q_array = getQuestByTicket($db, $tkt_id); //из api.php
+    $a_id = addNewAnswer($db, $_SESSION['user'], $tkt_id); //из api.php - код текущего ответа
 ?>   
-
 <h3><time>00:00</time></h3>
 <script>
 let time = document.getElementsByTagName('time')[0];
@@ -59,8 +57,7 @@ reset.onclick = function() {
 }
 </script>
 
-
-<form id="form" action="trainer_query.php" method="post">
+<form id="form" action="exam_query.php" method="post">
 <?php
     $true_ans = array(); //массив для записи верных ответов теста
     foreach ($q_array as $row) 
@@ -91,18 +88,13 @@ reset.onclick = function() {
             <!-- вариант ответа 5 -->  
             <?php if ($row['ans5'] != null) {  
                 echo "<input type=\"radio\" name=\"ans_$n\" value=\"5\"> <label>", $row['ans5'], "</label><br>"; }}} ?>
-            <div>
-                <p id="first" onclick="first()">Показать подсказку</p>
-                <p id="first_yelloy"; style="display:none" onclick="first_yelloy()">Скрыть подсказку </p>
-                <div id="second_hide" style="display:none"><?php echo $row['description']; ?></div>
-
-</div>
         </div>
     </div>
 <?php
 }?>
    <input type="hidden" name="body" id="body">
    <input type="hidden" name="body2" id="body2" value="<?php echo $tkt_id ?>">
+   <input type="hidden" name="body3" id="body3" value="<?php echo $a_id ?>">
 </form>
     <button onclick="nextAns()">Далее</button>
 
@@ -142,22 +134,6 @@ reset.onclick = function() {
                 document.forms.form.submit();
             }
     }
-
-    function first() {
-
-document.getElementById("second_hide").setAttribute("style", "opacity:1; transition: 1s; height: 100%;");
-document.getElementById("first").setAttribute("style", "display: none");
-document.getElementById("first_yelloy").setAttribute("style", "display: block");
-
-}
-
-function first_yelloy() {
-document.getElementById("second_hide").setAttribute("style", "display: none");
-document.getElementById("first_yelloy").setAttribute("style", "display: none");
-document.getElementById("first").setAttribute("style", "display: block");
-}
-
-
     </script>
 <style>
 .test .answer{
@@ -165,25 +141,6 @@ document.getElementById("first").setAttribute("style", "display: block");
 }
 .test .answer._active{
     display: block;
-}
-
-p#first {
-cursor: pointer;
-line-height: 13px;
-text-indent: 22px;
-line-height: 33px;
-border: 1px solid #d2d2d2;
-font-size: 18px;
-}
-
-p#first_yelloy {
-cursor: pointer;
-background: #f5f5f5;
-font-size: 18px;
-color: black;
-text-indent: 22px;
-line-height: 33px;
-border: 1PX SOLID #d2d2d2;
 }
 
 </style>

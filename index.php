@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css">
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
 	</head>
 <body>
-		<div class="col-md-8">
+		<div class="col">
 			<?php if(isset($_SESSION['message'])): ?>
 				<div class="alert alert-<?php echo $_SESSION['message']['alert'] ?> msg"><?php echo $_SESSION['message']['text'] ?></div>
 			<script>
@@ -35,7 +35,7 @@
 				</div>
 				<br />
 				<div class="form-group">
-					<button class="btn btn-primary form-control" name="log_in">Вход</button>
+					<button class="btn" name="log_in">Вход</button>
 				</div>
 				<a href="registration.php">Регистрация</a>
 			</form>
