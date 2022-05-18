@@ -1,24 +1,15 @@
-<?php include('header.php'); 
-  get_session();
-?>
+<?php session_start();
+include('header.php'); 
+get_session();?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf8mb4">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Результат</title>
 </head>
-<style>
-.win {
-color: green;
-}
-
-.loss{
-color: red;
-}
-</style> 
 <body>
 <?php 
 include 'db.php';
@@ -59,52 +50,30 @@ function getTime($db, $a_id){
     $stmt = $db->prepare("SELECT TIMESTAMPDIFF(SECOND, start_time, end_time) FROM answers WHERE a_id = ?;") ;
         $stmt->execute(array($a_id));
         $seconds = $stmt->fetch(PDO::FETCH_COLUMN);
+        $sec = $seconds;
         $minutes = floor($seconds / 60);
         $seconds = $seconds - ($minutes*60);
-        echo "<div>Время выполнения экзамена: ".$minutes.":".$seconds."</div>";    
+        if($sec > 1200) echo "<div class=\"loss\">Время выполнения экзамена: ".$minutes.":".$seconds."</div>";  
+        else echo "<div class=\"win\">Время выполнения экзамена: ".$minutes.":".$seconds."</div>";  
+        return $sec;
 }
-
-//получение информации после тестирования в exam.php
-/* var_dump($_POST); 
-echo '<hr>';
-$user_ans = $_POST['body'];
-echo "ответы пользователя без json <br>";
-var_dump($user_ans);
-echo '<hr>';
-echo "ответы пользователя json <br>";
-$arr = json_decode($user_ans);
-var_dump($arr);
-
-echo '<hr>';
-echo "номер билета <br>";
-$tkt_id = $_POST['body2'];
-settype($tkt_id, "integer");
-echo $tkt_id;
-
-echo '<hr>';
-$true_answers = getTrueAns($db, $tkt_id);
-echo "массив верных ответов <br>";
-var_dump($true_answers);
-echo '<hr>'; */
-
-//ответы пользователя
-$user_ans = $_POST['body'];
+$user_ans = $_POST['body'];//ответы пользователя
 $arr = json_decode($user_ans);
 
-//номер билета
-$tkt_id = $_POST['body2'];
+$tkt_id = $_POST['body2'];//номер билета
 settype($tkt_id, "integer");
 
-//номер записи в таблице ответов
-$a_id = $_POST['body3'];
+$a_id = $_POST['body3'];//номер записи в таблице ответов
 settype($a_id, "integer");
 
-//массив верных ответов
-$true_answers = getTrueAns($db, $tkt_id);
-
+$true_answers = getTrueAns($db, $tkt_id);//массив верных ответов
 $err = 0; //количество ошибок
+?>
+<div class="container">
+<h4>Результаты экзамена</h4><hr>
 
-echo "<h1>Результаты экзамена</h1><hr>";
+<?php
+
 for($i = 0; $i < count($arr); $i++)
 {
     $num = $i + 1;
@@ -121,17 +90,22 @@ for($i = 0; $i < count($arr); $i++)
 } 
 
 if($err < 3) {
-    echo "<hr>Допущено ошибок: $err .<div class=\"win\"> Экзамен пройден успешно.</div>"; 
+    echo "<hr>Допущено ошибок: $err.<div class=\"win\"> Достигнуто необходимое количество правильных ответов.</div>"; 
     $status = 1;
 }
 else {
-    echo "<hr>Допущено ошибок: $err .<div class=\"loss\">Экзамен не пройден.</div>";
+    echo "<hr>Допущено ошибок: $err .<div class=\"loss\">Не достигнуто необордимое количество правильных ответов</div>";
     $status = 0;
 }
 $user_ans_str = json_encode($user_ans);
 saveResult($db, $a_id, $user_ans_str, $status); //вызов функции сохранения результата
-getTime($db, $a_id); //вызов функции затраченного времени
+$sec = getTime($db, $a_id); //вызов функции затраченного времени
+if($status = 1 && $sec <= 1200) { echo "<div class=\"win\">Экзамен сдан успешно</div>";}
+else { echo "<div class=\"loss\">Экзамен сдан неуспешно</div>"; }
 ?>
-
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>	
 </body>
-</html> 
+</html>

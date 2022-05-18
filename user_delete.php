@@ -15,19 +15,17 @@ get_session();?>
   <?php
    get_header(); 
   include 'db.php';
-  include 'api.php';
-  include 'questions_query.php';
+  include 'users_query.php';
 
-  //получение из questions.php
-  $q_id = $_GET['q_id'];
-  $tkt_id = $_GET['tkt_id'];
-
-  if ($q_id) {
-    deleteQuestion($db, $q_id);
-    echo "<div class=\"container\"><h1>Вопрос удалён</h1>";
-    echo "<a href=\"questions.php?tkt_id=$tkt_id\" >Вернуться к вопросам</a>";
+  //получение из uedit.php
+  $u_id= $_GET['u_id'];
+ 
+  if ($u_id) {
+    deleteUser($db, $u_id);
+    echo "<div class=\"container\"><h1>Пользователь удалён</h1>";
+    echo "<a href=\"users.php\">Вернуться к списку пользователей</a>";
   } else {
-    echo "<h1>При удаление призошла ошибка</h1></div>";
+    echo "<h5>При удаление призошла ошибка</h5></div>";
     exit();
   }
 

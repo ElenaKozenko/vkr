@@ -1,31 +1,32 @@
-<?php include('header.php'); 
-  get_session();
-?>
+<?php session_start();
+include('header.php'); 
+get_session();?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf8mb4">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Document</title>
+    <title>Экзамен</title>
 </head>
 <body>
+<?php get_header(); ?>
+<div class="container">
 <?php
-    get_header(); 
-
     include 'db.php';
     include 'api.php';
 
     $tkt_id = $_GET['tkt_id'];
     $name = $_GET['name'];
     $n = 0; //номер вопроса
-    echo $name; //название билета
+    echo '<h5>'.$name.'. Экзамен</h5>'; //название билета
 
     $q_array = getQuestByTicket($db, $tkt_id); //из api.php
     $a_id = addNewAnswer($db, $_SESSION['user'], $tkt_id); //из api.php - код текущего ответа
 ?>   
-<h3><time>00:00</time></h3>
+<h5><time>00:00</time></h5>
 <script>
 let time = document.getElementsByTagName('time')[0];
 let sec = 0;
@@ -73,21 +74,23 @@ reset.onclick = function() {
                 } else $pathImg = '/pic/no_pic.png';
             }
             echo "<img height=\"150px\" src=\"$pathImg\"><br>"; // отображение картинки
-            echo $row['task'], "<br>"; //вывод вопроса
+            echo "<p><b>",$row['task'], "</b></p>"; //вывод вопроса
         ?>
+            <div class="form-check">
             <!-- вариант ответа 1 -->
-            <input type="radio" name="ans_<?php echo $n;?>" value="1"> <label> <?php echo $row['ans1'] ?> </label><br>
+            <input type="radio" name="ans_<?php echo $n;?>" value="1" class="form-check-input"> <label class="form-check-label"> <?php echo $row['ans1'] ?> </label></div>
             <!-- вариант ответа 2 -->
-            <input type="radio" name="ans_<?php echo $n;?>" value="2"> <label> <?php echo $row['ans2'] ?> </label><br>
+            <div class="form-check">
+            <input type="radio" name="ans_<?php echo $n;?>" value="2" class="form-check-input"> <label class="form-check-label"> <?php echo $row['ans2'] ?> </label></div>
             <!-- вариант ответа 3 -->
             <?php if ($row['ans3'] != null) {
-                echo "<input type=\"radio\" name=\"ans_$n\" value=\"3\"> <label>", $row['ans3'], "</label><br>"; ?>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"3\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans3'], "</label></div>"; ?>
             <!-- вариант ответа 4 --> 
             <?php if ($row['ans4'] != null) {  
-                echo "<input type=\"radio\" name=\"ans_$n\" value=\"4\"> <label>", $row['ans4'], "</label><br>"; ?>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"4\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans4'], "</label></div>"; ?>
             <!-- вариант ответа 5 -->  
             <?php if ($row['ans5'] != null) {  
-                echo "<input type=\"radio\" name=\"ans_$n\" value=\"5\"> <label>", $row['ans5'], "</label><br>"; }}} ?>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"5\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans5'], "</label></div>"; }}} ?>
         </div>
     </div>
 <?php
@@ -96,7 +99,7 @@ reset.onclick = function() {
    <input type="hidden" name="body2" id="body2" value="<?php echo $tkt_id ?>">
    <input type="hidden" name="body3" id="body3" value="<?php echo $a_id ?>">
 </form>
-    <button onclick="nextAns()">Далее</button>
+    <br><button onclick="nextAns()" class="btn btn-secondary">Далее</button>
 
     <script>  
         let curAns = 0;

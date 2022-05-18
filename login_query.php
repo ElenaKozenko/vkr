@@ -9,7 +9,9 @@
 			// md5 encrypted
 			// $password = md5($_POST['password']);
 			$password = $_POST['password'];
-			$sql = "SELECT * FROM `users` WHERE `login`='$login' AND `password`='$password' ";
+			$sql = "SELECT users.u_id, users.surname, users.name, users.patr, users.login, users.password, users.instructor, category.name as 'status'  
+			FROM users JOIN category WHERE users.category = category.ct_id AND `login`='$login' AND `password`='$password';";
+			//$sql = "SELECT * FROM `users` WHERE `login`='$login' AND `password`='$password' ";
 			$query = $db->prepare($sql);
 			$query->execute(array($login,$password));
 			$row = $query->rowCount();
@@ -19,7 +21,7 @@
 				$_SESSION['u_name'] = $fetch['name'];
 				$_SESSION['u_surname'] = $fetch['surname'];
 				$_SESSION['u_patr'] = $fetch['patr'];
-				$_SESSION['status'] = $fetch['category'];
+				$_SESSION['status'] = $fetch['status'];
 				//header("location: pdd.php");
 				echo "
 				<script>window.location = 'pdd.php';</script>

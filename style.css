@@ -1,63 +1,3 @@
-body{
-	font-family: "Helvetica";
-}
-.col{
-    margin:0 auto;
-    width: 900px;
-    font-family: "Helvetica";
-}
-
-.form-group{
-    margin: 5px;
-    width: 700px;
-}
-
-.form-control{
-    width: 400px;
-	height: 35px;
-	padding: 5px 8px 5px 8px;
-	background: #ffffff;
-	color: #c0c0c0;
-	border-color: #232323;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 3px 3px 3px 3px;
-	font-family: "Helvetica";
-	font-weight: 400;
-	font-size: 14px;
-	text-align: left;
-}
-
-.btn{
-	width: 165px;
-	height: 32px;
-	padding: 0px 10px 0px 10px;
-	background: #ebebeb;
-	color: #232323;
-	border-color: #232323;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 3px 3px 3px 3px;
-	font-family: "Helvetica";
-	font-weight: 400;
-	font-size: 14px;
-	text-align: center;
-}
-
-a{
-	text-decoration: none;
-	color: #000000;
-
-}
-
-a:visited{
-	text-decoration: none;
-	color: #000000;
-}
-header{
-	width: 100%;
-	height: 50px;
-}
 .navbar{
 	background-color: rgb(231, 231, 231);
 overflow: hidden;
@@ -75,10 +15,6 @@ overflow: hidden;
 	padding: 10px;
 	float: left;
 }
-
-
-
-
 .nav-item a:hover{
 	background-color: rgb(75, 73, 70);
 	color: #ffffff;
@@ -94,12 +30,14 @@ overflow: hidden;
 
 .tkt{
 	margin: 0 auto;
+	align-self: center;
+	padding: 0px;
 }
-.tkt .block{
+.block{
 	border-color: #232323;
 	border-width: 1px;
 	border-style: solid;
-	border-radius: 3px 3px 3px 3px;
+	border-radius: 5px 5px 5px 5px;
 	font-family: "Helvetica";
 	font-weight: 400;
 	font-size: 14px;
@@ -108,8 +46,19 @@ overflow: hidden;
 	padding: 10px;
 	float: left;
 	width: 100px;
+	color: red;
 }
-
+.tkt .block .a{
+	direction: none;
+	color: black;
+}
+.blk{
+    margin: 10px;
+	padding: 10px;
+	float: left;
+	width: 100px;
+        }
 .block:hover{
 	background-color: rgba(216, 213, 209, 0.815);
 }
+

@@ -1,48 +1,24 @@
-<?php include('header.php'); 
-  get_session();
-?>
+<?php session_start();
+include('header.php'); 
+get_session();?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf8mb4">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Новый вопрос</title>
-    <style>
-    label,
-    input {
-        width: 450px;
-        padding: 5px;
-        margin: 20px;
-    }
-
-    *,
-    *:before,
-    *:after {
-        box-sizing: border-box;
-    }
-
-    form {
-        width: 500px;
-    }
-    </style>
-
 <body>
-
     <?php 
     get_header(); 
-    
     include 'db.php';  
     include 'api.php';
     include 'questions_query.php';
     $topic = getAllTopics($db);
     $tkt = getAllTickets($db);
-
-    
     $tkt_id = $_GET['tkt_id'];
     $n = $_GET['n']; //порядковый номер билета
-
     $pathImg = '/pic/no_pic.png';
     if( isset($_GET['q']) ){
         $pt = 'uploaded/'.$tkt_id.'_'.$_GET['q_id'].'.jpg';
@@ -50,77 +26,84 @@
             $pathImg = '/uploaded/'.$tkt_id.'_'.$_GET['q_id'].'.jpg';
         }
     }
-    
 ?>
+<div class="container">
     <img height="100px" src="<?php echo $pathImg; ?>" alt="">
     <form onSubmit="(e) => e.preventDefault()" method="post" enctype="multipart/form-data">
-
         <!-- название билета и вопроса-->
-        <?php echo "Cоздание вопроса №$n к билету №$tkt_id" ?>
+        <?php echo "<h4>Cоздание вопроса №$n к билету №$tkt_id</h4>" ?>
 
-        <br>
-        <label for="theme">Тема билета*:</label> <!-- выбор темы билета -->
-        <select id="theme" name="theme">
+        <div class="form-group">
+        <label for="upload_img">Загрузить изображение</label>
+        <input type="file" id="upload_img" name="upload_img" accept=".jpg, .jpeg, .png"  class="form-control-file">
+        </div>
+        <p><span style="color: red;">*</span>-обязательные поля</p>
+        <div class="form-group row">
+        <label for="theme" class="col-sm-2 col-form-label">Тема билета<span style="color: red;">*</span>:</label> <!-- выбор темы билета -->
+        <div class="col-sm-10">
+        <select id="theme" name="theme" class="form-control">
             <?php foreach ($topic as $row){
                 $id = $row['tp_id'];
                 $name = $row['name'];
                 echo "<option value=\"$id\">$name</option>";}?>
         </select>
+        </div></div>
 
-
-        <label for="upload_img">Загрузить изображение</label>
-        <input type="file" id="upload_img" name="upload_img" accept=".jpg, .jpeg, .png">
-
-        <label for="question">Вопрос*: </label> <!-- ввод вопроса -->
-        <input type="text" id="question" name="question" placeholder="Введите вопрос здесь" maxlength="">
-
+        
+        <div class="form-group row">
+        <label for="question" class="col-sm-2 col-form-label">Вопрос<span style="color: red;">*</span>: </label> <!-- ввод вопроса -->
+        <div class="col-sm-10">
+        <textarea  class="form-control" id="question" name="question" placeholder="Введите вопрос здесь"></textarea>
+        </div></div>
         <!-- ввод ответов -->
-        <label for="answer1">Вариант ответа 1*: </label>
-        <input type="text" id="answer1" name="answer1" placeholder="Введите ответ здесь" maxlength="">
+        <div class="form-group row">
+        <label for="answer1" class="col-sm-2 col-form-label">Вариант ответа 1<span style="color: red;">*</span>: </label>
+        <div class="col-sm-10">
+        <textarea  class="form-control" id="answer1" name="answer1" placeholder="Введите ответ здесь"></textarea>
+        </div></div>
+        <div class="form-group row">
+        <label for="answer2" class="col-sm-2 col-form-label">Вариант ответа 2<span style="color: red;">*</span>:</label>
+        <div class="col-sm-10">
+        <textarea  class="form-control" id="answer2" name="answer2" placeholder="Введите ответ здесь"></textarea>
+        </div></div>
 
-        <label for="answer2">Вариант ответа 2*:</label>
-        <input type="text" id="answer2" name="answer2" placeholder="Введите ответ здесь" maxlength="">
+        <div class="form-group row">
+        <label for="answer3" class="col-sm-2 col-form-label">Вариант ответа 3:</label>
+        <div class="col-sm-10">
+        <textarea  class="form-control" id="answer3" name="answer3" placeholder="Введите ответ здесь"></textarea>
+        </div></div>
 
-        <label for="answer3">Вариант ответа 3:</label>
-        <input type="text" id="answer3" name="answer3" placeholder="Введите ответ здесь" maxlength="">
+        <div class="form-group row">
+        <label for="answer4" class="col-sm-2 col-form-label">Вариант ответа 4:</label>
+        <div class="col-sm-10">
+        <textarea  class="form-control" id="answer4" name="answer4" placeholder="Введите ответ здесь"></textarea>
+        </div></div>
 
-        <label for="answer4">Вариант ответа 4:</label>
-        <input type="text" id="answer4" name="answer4" placeholder="Введите ответ здесь" maxlength="">
+        <div class="form-group row">
+        <label for="answer5" class="col-sm-2 col-form-label">Вариант ответа 5:</label>
+        <div class="col-sm-10">
+        <textarea  class="form-control" id="answer5" name="answer5" placeholder="Введите ответ здесь"></textarea>
+        </div></div>
 
-        <label for="answer5">Вариант ответа 5:</label>
-        <input type="text" id="answer5" name="answer5" placeholder="Введите ответ здесь" maxlength="">
+        <div class="form-group row">
+        <label for="answer" class="col-sm-2 col-form-label">Номер верного ответа<span style="color: red;">*</span>:</label> 
+        <div class="col-sm-2"><!-- номер верного ответа -->
+        <input type="number" id="answer" name="answer" min="1" max="5" class="form-control" >
+        </div></div>
 
-        <label for="answer">Номер верного ответа*:</label> <!-- номер верного ответа -->
-        <input type="number" id="answer" name="answer" min="1" max="5">
+        <div class="form-group row">
+        <label for="question" class="col-sm-2 col-form-label">Описание ответа, подсказка:</label>
+        <div class="col-sm-10">
+        <textarea  class="form-control" id="description" name="description" placeholder="Введите подсказку здесь" maxlength=""></textarea>
+        </div></div>
 
-        <label for="question">Описание ответа, подсказка:</label>
-        <input type="text" id="description" name="description" placeholder="Введите подсказку здесь" maxlength="">
+        <input type="reset" value="Очистить поля" class="btn btn-secondary">
 
-        <input type="reset" value="Очистить поля">
-
-        <input type="submit" value="Добавить вопрос">
+        <input type="submit" value="Добавить вопрос" class="btn btn-success">
     </form>
-<p>*-обязательные поля</p>
+
     <?php echo "<a href=\"questions.php?tkt_id=$tkt_id\">Вернутья к списку вопросов</a>" ?>
-    <?php
-    if($_POST['question'] != '')  
-            {
-            $n=0;
-            $tp_id=$_POST['theme'];
-            $task=$_POST['question'];
-            if ($_POST['answer1'] == '') $ans1 = null; else {$ans1=$_POST['answer1']; $n++;}
-            if ($_POST['answer2'] == '') $ans2 = null; else {$ans2=$_POST['answer2']; $n++;}
-            if ($_POST['answer3'] == '') $ans3 = null; else {$ans3=$_POST['answer3']; $n++;}
-            if ($_POST['answer4'] == '') $ans4 = null; else {$ans4=$_POST['answer4']; $n++;}
-            if ($_POST['answer5'] == '') $ans5 = null; else {$ans5=$_POST['answer5']; $n++;}
-            if ($_POST['description'] == '') $description = null; else $description=$_POST['description'];
-            if ($_POST['answer'] == '') $true_ans = null; 
-            else if($_POST['answer'] > $n) echo "(Вы ввели в качестве номера верного ответа ".$_POST['answer'].", но заполнили $n поля)";
-            else {
-                $true_ans=$_POST['answer'];
-                $q_id = addQuestion($db, $tkt_id, $tp_id, $task, $true_ans, $ans1, $ans2, $ans3, $ans4, $ans5, $description);
-                UploadImage($tkt_id, $q_id);}
-}
+<?php
 
 
 if($_POST['question'] != '')  
@@ -151,11 +134,8 @@ if ($_POST['answer1'] == '')
                     $true_ans=$_POST['answer']; 
                     $q_id = addQuestion($db, $tkt_id, $tp_id, $task, $true_ans, $ans1, $ans2, $ans3, $ans4, $ans5, $description);
                     UploadImage($tkt_id, $q_id); 
-                    echo "<script>alert('Вопрос успешно добавлен');</script> ";
-                    $n = $_GET['n'];
-                    settype($n, "integer");
-                    $n++;
-                    echo "<a href=\"newquestion.php?tkt_id=$tkt_id&n=$n\">Добавить новый вопрос к билету</a>";
+                    echo "<script>window.location = 'questions.php?tkt_id=$tkt_id';</script>
+				";
             }
         }
     }  

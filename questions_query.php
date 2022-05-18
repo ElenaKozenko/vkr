@@ -18,8 +18,7 @@ function  addQuestion($db, $tkt_id, $tp_id, $task, $true_ans, $ans1, $ans2, $ans
         $stmt->bindValue('ans5', $ans5, PDO::PARAM_STR);
         $stmt->bindValue('description', $description, PDO::PARAM_STR);
         $stmt->execute();
-        //echo "<br>Вопрос успешно добавлен<br>";
-
+ 
         $stmt = $db->prepare("SELECT LAST_INSERT_ID();") ;
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_COLUMN);

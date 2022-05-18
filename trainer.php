@@ -1,20 +1,19 @@
-<?php include('header.php'); 
-  get_session();
-?>
+<?php session_start();
+include('header.php'); 
+get_session();?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf8mb4">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Тренировка</title>
 </head>
 <body>
-<div>
-    <?php get_header(); ?>
- <br>
-</div>
+<?php get_header(); ?>
+<div class="container">
 <?php
     include 'db.php';
     include 'api.php';
@@ -22,12 +21,12 @@
     $tkt_id = $_GET['tkt_id'];
     $name = $_GET['name'];
     $n = 0; //номер вопроса
-    echo $name; //название билета
+    echo "<h5>$name. Тренировка</h>"; //название билета
 
     $q_array = getQuestByTicket($db, $tkt_id); //из api.php
 ?>   
 
-<h3><time>00:00</time></h3>
+<h5><time>00:00</time></h5>
 <script>
 let time = document.getElementsByTagName('time')[0];
 let sec = 0;
@@ -76,22 +75,25 @@ reset.onclick = function() {
                 } else $pathImg = '/pic/no_pic.png';
             }
             echo "<img height=\"150px\" src=\"$pathImg\"><br>"; // отображение картинки
-            echo $row['task'], "<br>"; //вывод вопроса
+            echo "<p><b>",$row['task'], "</b></p>"; //вывод вопроса
         ?>
+            <div class="form-check">
             <!-- вариант ответа 1 -->
-            <input type="radio" name="ans_<?php echo $n;?>" value="1"> <label> <?php echo $row['ans1'] ?> </label><br>
+            <input type="radio" name="ans_<?php echo $n;?>" value="1" class="form-check-input"> <label class="form-check-label"> <?php echo $row['ans1'] ?> </label></div>
             <!-- вариант ответа 2 -->
-            <input type="radio" name="ans_<?php echo $n;?>" value="2"> <label> <?php echo $row['ans2'] ?> </label><br>
+            <div class="form-check">
+            <input type="radio" name="ans_<?php echo $n;?>" value="2" class="form-check-input"> <label class="form-check-label"> <?php echo $row['ans2'] ?> </label></div>
             <!-- вариант ответа 3 -->
             <?php if ($row['ans3'] != null) {
-                echo "<input type=\"radio\" name=\"ans_$n\" value=\"3\"> <label>", $row['ans3'], "</label><br>"; ?>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"3\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans3'], "</label></div>"; ?>
             <!-- вариант ответа 4 --> 
             <?php if ($row['ans4'] != null) {  
-                echo "<input type=\"radio\" name=\"ans_$n\" value=\"4\"> <label>", $row['ans4'], "</label><br>"; ?>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"4\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans4'], "</label></div>"; ?>
             <!-- вариант ответа 5 -->  
             <?php if ($row['ans5'] != null) {  
-                echo "<input type=\"radio\" name=\"ans_$n\" value=\"5\"> <label>", $row['ans5'], "</label><br>"; }}} ?>
-            <div>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"5\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans5'], "</label></div>"; }}} ?>
+           
+           <div>
                 <p id="first" onclick="first()">Показать подсказку</p>
                 <p id="first_yelloy"; style="display:none" onclick="first_yelloy()">Скрыть подсказку </p>
                 <div id="second_hide" style="display:none"><?php echo $row['description']; ?></div>
@@ -104,8 +106,8 @@ reset.onclick = function() {
    <input type="hidden" name="body" id="body">
    <input type="hidden" name="body2" id="body2" value="<?php echo $tkt_id ?>">
 </form>
-    <button onclick="nextAns()">Далее</button>
-
+    <br><button onclick="nextAns()" class="btn btn-secondary">Далее</button>
+</div>
     <script>  
         let curAns = 0;
         let ans = document.querySelectorAll(".test .answer"); //массив карточек
@@ -188,5 +190,8 @@ border: 1PX SOLID #d2d2d2;
 
 </style>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>	
 </body>
 </html>
