@@ -7,20 +7,17 @@ function get_session(){
 function get_header(){
       global $u_name;
 
-echo '<div class="bg-dark" style="width: 100%; display: flex;
-justify-content: flex-end;"><span style="color: rgba(255,255,255,.5)">Пользователь: '.$u_name.'</span></div>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+/* echo '<div class="bg-dark" style="width: 100%; display: flex;
+justify-content: flex-end;"><span style="color: rgba(255,255,255,.5)">'.$u_name.'</span></div> */
+echo '<nav class="navbar navbar-expand-md bg-dark navbar-dark"> 
 <!-- Brand -->
-
 <a class="navbar-brand" href="pdd.php">
 <img src="pic/logo2.png" alt="Logo" style="width:40px;">
 </a>
-
 <!-- Toggler/collapsibe Button -->
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
   <span class="navbar-toggler-icon"></span>
 </button>
-
 <!-- Navbar links -->
 <div class="collapse navbar-collapse" id="collapsibleNavbar">
   <ul class="navbar-nav">
@@ -51,7 +48,7 @@ justify-content: flex-end;"><span style="color: rgba(255,255,255,.5)">Польз
       <a class="nav-link" href="users.php">Пользователи</a>
     </li>'; 
       echo '      <li class="nav-item">
-      <a class="nav-link" href="logout.php">Выход</a>
+      <a class="nav-link" href="logout.php">Выйти</a>
     </li>
     
   </ul>
@@ -60,6 +57,3 @@ justify-content: flex-end;"><span style="color: rgba(255,255,255,.5)">Польз
       ';
 }
 ?>
-
-
-

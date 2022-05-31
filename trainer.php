@@ -10,6 +10,21 @@ get_session();?>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Тренировка</title>
+    <link rel="shortcut icon" href="pic/logo1.png" type="image/png">
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(88926432, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/88926432" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 <?php get_header(); ?>
@@ -21,12 +36,12 @@ get_session();?>
     $tkt_id = $_GET['tkt_id'];
     $name = $_GET['name'];
     $n = 0; //номер вопроса
-    echo "<h5>$name. Тренировка</h>"; //название билета
+    echo "<b>$name. Тренировка</b>"; //название билета
 
     $q_array = getQuestByTicket($db, $tkt_id); //из api.php
 ?>   
 
-<h5><time>00:00</time></h5>
+<br><b><time>00:00</time></b>
 <script>
 let time = document.getElementsByTagName('time')[0];
 let sec = 0;
@@ -74,7 +89,7 @@ reset.onclick = function() {
                     $pathImg = '/uploaded/' . $tkt_id . '_' . $row['q_id'] . '.jpg';
                 } else $pathImg = '/pic/no_pic.png';
             }
-            echo "<img height=\"150px\" src=\"$pathImg\"><br>"; // отображение картинки
+            echo "<img class= \"illustration\"  src=\"$pathImg\"><br>"; // отображение картинки
             echo "<p><b>",$row['task'], "</b></p>"; //вывод вопроса
         ?>
             <div class="form-check">
@@ -92,13 +107,7 @@ reset.onclick = function() {
             <!-- вариант ответа 5 -->  
             <?php if ($row['ans5'] != null) {  
                 echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"5\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans5'], "</label></div>"; }}} ?>
-           
-           <div>
-                <p id="first" onclick="first()">Показать подсказку</p>
-                <p id="first_yelloy"; style="display:none" onclick="first_yelloy()">Скрыть подсказку </p>
-                <div id="second_hide" style="display:none"><?php echo $row['description']; ?></div>
 
-</div>
         </div>
     </div>
 <?php
@@ -145,22 +154,7 @@ reset.onclick = function() {
             }
     }
 
-    function first() {
-
-document.getElementById("second_hide").setAttribute("style", "opacity:1; transition: 1s; height: 100%;");
-document.getElementById("first").setAttribute("style", "display: none");
-document.getElementById("first_yelloy").setAttribute("style", "display: block");
-
-}
-
-function first_yelloy() {
-document.getElementById("second_hide").setAttribute("style", "display: none");
-document.getElementById("first_yelloy").setAttribute("style", "display: none");
-document.getElementById("first").setAttribute("style", "display: block");
-}
-
-
-    </script>
+</script>
 <style>
 .test .answer{
     display: none;
@@ -169,24 +163,7 @@ document.getElementById("first").setAttribute("style", "display: block");
     display: block;
 }
 
-p#first {
-cursor: pointer;
-line-height: 13px;
-text-indent: 22px;
-line-height: 33px;
-border: 1px solid #d2d2d2;
-font-size: 18px;
-}
 
-p#first_yelloy {
-cursor: pointer;
-background: #f5f5f5;
-font-size: 18px;
-color: black;
-text-indent: 22px;
-line-height: 33px;
-border: 1PX SOLID #d2d2d2;
-}
 
 </style>
 

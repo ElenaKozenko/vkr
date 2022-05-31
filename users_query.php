@@ -48,9 +48,12 @@ function userInstructor($db, $instructor)
 function editUser($db, $u_id, $surname, $name, $patr, $login, $password, $category, $instructor)
 {
     try {
-        $sql = "UPDATE users SET
-        surname = '$surname', name = '$name', patr = '$patr', 
-        login = '$login', password = '$password', category = $category, instructor = $instructor WHERE u_id = $u_id";
+        $sql = "UPDATE users SET surname = '$surname', name = '$name', patr = '$patr', 
+        login = '$login', password = '$password', category = $category, instructor = $instructor WHERE u_id = $u_id;";
+
+        if($instructor == 'NULL') $sql = "UPDATE users SET surname = '$surname', name = '$name', patr = '$patr', 
+        login = '$login', password = '$password', instructor = null, category = $category  WHERE u_id = $u_id;";
+
         $db->exec($sql);
     } catch (PDOException $e) {
         echo "<br>Возникла ошибка при редактировании.<br>";

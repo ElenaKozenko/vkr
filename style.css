@@ -1,24 +1,8 @@
-.navbar{
-	background-color: rgb(231, 231, 231);
-overflow: hidden;
-}
-.nav-item {
-	width: 150;
-	float: center;
-}
+.illustration { 
+	max-width: 100%; 
+	max-height: 180px;
+	}
 
-.nav-user{
- float: right;
-}
-.nav-item a{
-	text-decoration: none;
-	padding: 10px;
-	float: left;
-}
-.nav-item a:hover{
-	background-color: rgb(75, 73, 70);
-	color: #ffffff;
-}
 
 .win {
 	color: green;

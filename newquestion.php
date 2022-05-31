@@ -8,7 +8,22 @@ get_session();?>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="pic/logo1.png" type="image/png">
     <title>Новый вопрос</title>
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(88926432, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/88926432" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 <body>
     <?php 
     get_header(); 
@@ -19,16 +34,9 @@ get_session();?>
     $tkt = getAllTickets($db);
     $tkt_id = $_GET['tkt_id'];
     $n = $_GET['n']; //порядковый номер билета
-    $pathImg = '/pic/no_pic.png';
-    if( isset($_GET['q']) ){
-        $pt = 'uploaded/'.$tkt_id.'_'.$_GET['q_id'].'.jpg';
-        if(file_exists($pt)){
-            $pathImg = '/uploaded/'.$tkt_id.'_'.$_GET['q_id'].'.jpg';
-        }
-    }
 ?>
 <div class="container">
-    <img height="100px" src="<?php echo $pathImg; ?>" alt="">
+
     <form onSubmit="(e) => e.preventDefault()" method="post" enctype="multipart/form-data">
         <!-- название билета и вопроса-->
         <?php echo "<h4>Cоздание вопроса №$n к билету №$tkt_id</h4>" ?>
@@ -53,36 +61,36 @@ get_session();?>
         <div class="form-group row">
         <label for="question" class="col-sm-2 col-form-label">Вопрос<span style="color: red;">*</span>: </label> <!-- ввод вопроса -->
         <div class="col-sm-10">
-        <textarea  class="form-control" id="question" name="question" placeholder="Введите вопрос здесь"></textarea>
+        <textarea  class="form-control" id="question" name="question"  ></textarea>
         </div></div>
         <!-- ввод ответов -->
         <div class="form-group row">
         <label for="answer1" class="col-sm-2 col-form-label">Вариант ответа 1<span style="color: red;">*</span>: </label>
         <div class="col-sm-10">
-        <textarea  class="form-control" id="answer1" name="answer1" placeholder="Введите ответ здесь"></textarea>
+        <textarea  class="form-control" id="answer1" name="answer1" ></textarea>
         </div></div>
         <div class="form-group row">
         <label for="answer2" class="col-sm-2 col-form-label">Вариант ответа 2<span style="color: red;">*</span>:</label>
         <div class="col-sm-10">
-        <textarea  class="form-control" id="answer2" name="answer2" placeholder="Введите ответ здесь"></textarea>
+        <textarea  class="form-control" id="answer2" name="answer2" ></textarea>
         </div></div>
 
         <div class="form-group row">
         <label for="answer3" class="col-sm-2 col-form-label">Вариант ответа 3:</label>
         <div class="col-sm-10">
-        <textarea  class="form-control" id="answer3" name="answer3" placeholder="Введите ответ здесь"></textarea>
+        <textarea  class="form-control" id="answer3" name="answer3" ></textarea>
         </div></div>
 
         <div class="form-group row">
         <label for="answer4" class="col-sm-2 col-form-label">Вариант ответа 4:</label>
         <div class="col-sm-10">
-        <textarea  class="form-control" id="answer4" name="answer4" placeholder="Введите ответ здесь"></textarea>
+        <textarea  class="form-control" id="answer4" name="answer4" ></textarea>
         </div></div>
 
         <div class="form-group row">
         <label for="answer5" class="col-sm-2 col-form-label">Вариант ответа 5:</label>
         <div class="col-sm-10">
-        <textarea  class="form-control" id="answer5" name="answer5" placeholder="Введите ответ здесь"></textarea>
+        <textarea  class="form-control" id="answer5" name="answer5" ></textarea>
         </div></div>
 
         <div class="form-group row">
@@ -128,7 +136,7 @@ if ($_POST['answer1'] == '')
 
             if ($_POST['description'] == '') $description = null; else $description=$_POST['description'];
 
-            if ($_POST['answer'] == '') {$true_ans = null;}
+            if ($_POST['answer'] == '') {$true_ans = null; echo "<script>alert('Не заполнено обязательное поле Номер верного ответа')</script>";}
             elseif($_POST['answer'] > $num) echo '<script>alert("Вы ввели в качестве номера верного ответа '.$_POST['answer'].', но заполнили '.$num.' поля ответов")</script>';
             else{ 
                     $true_ans=$_POST['answer']; 

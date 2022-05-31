@@ -8,7 +8,23 @@ get_session();?>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="pic/logo1.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Редактор вопроса</title>
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(88926432, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/88926432" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 <?php 
@@ -42,23 +58,22 @@ get_session();?>
        <div class="container">
        <?php echo "<h4>Вопрос №$n к билету №$tkt_id</h4>" ?>
     
-    <form name="" action="" method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
     <div class="row"> 
   
-    <img height="150px" src="<?php echo $pathImg; ?>" alt="">
-    <?php if($pathImg != '/pic/no_pic.png') echo '
-    <div class="col"> <div class="form-group"> 
-    <input style="width: 20px;" type="checkbox" id="img_del" name="img_del" value="Yes"  class="form-check-input">
-    <label for="img_del" class="form-check-label">Удалить картинку</label>
-    </div></div>'; ?>
+    <img class= "illustration"  src="<?php echo $pathImg; ?>" alt="">
     <div class="col"> 
     <div class="form-group">
     <label for="upload_img">Загрузить новое изображение</label>
     <input type="file" id="upload_img" name="upload_img" accept=".jpg, .jpeg, .png" class="form-control-file" >
     </div> </div>
     </div>
-       
-<br>
+    <?php if($pathImg != '/pic/no_pic.png') echo '
+    <div class="row"><div class="form-group"> 
+    <input type="checkbox" id="img_del" name="img_del" value="Yes"  class="form-check-input" style="margin-left: 10px; width: 20px;">
+    <label for="img_del" class="form-check-label" style="margin-left: 35px;">Удалить картинку</label>
+    </div></div>'; ?>  
+
 <hr style="border-top:1px groovy #000;">
 <div class="row">
 <div class="col">
@@ -70,7 +85,7 @@ get_session();?>
  <div class="col">
  <div class="form-group">
 
-        <label for="theme">Выбор новой темы билета:</label> <!-- выбор темы билета -->
+        <label for="theme">Выбор новой темы вопроса:</label> 
             <select id="theme" name="theme" class="form-control">
             <?php foreach ($topic as $row){
                 $id = $row['tp_id'];
@@ -124,7 +139,7 @@ get_session();?>
         </div>
         </div>
         <div class="form-group">
-        <input type="submit" value="Редактировать вопрос" class="btn btn-secondary">
+        <input type="submit" value="Сохранить" class="btn btn-secondary">
             </div>
     </form>
 <p>*-обязательные поля</p>

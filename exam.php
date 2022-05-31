@@ -10,6 +10,20 @@ get_session();?>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Экзамен</title>
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(88926432, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/88926432" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 <?php get_header(); ?>
@@ -21,12 +35,12 @@ get_session();?>
     $tkt_id = $_GET['tkt_id'];
     $name = $_GET['name'];
     $n = 0; //номер вопроса
-    echo '<h5>'.$name.'. Экзамен</h5>'; //название билета
+    echo '<b>'.$name.'. Экзамен</b>'; //название билета
 
     $q_array = getQuestByTicket($db, $tkt_id); //из api.php
     $a_id = addNewAnswer($db, $_SESSION['user'], $tkt_id); //из api.php - код текущего ответа
 ?>   
-<h5><time>00:00</time></h5>
+<br><b><time>00:00</time></b>
 <script>
 let time = document.getElementsByTagName('time')[0];
 let sec = 0;
@@ -73,7 +87,7 @@ reset.onclick = function() {
                     $pathImg = '/uploaded/' . $tkt_id . '_' . $row['q_id'] . '.jpg';
                 } else $pathImg = '/pic/no_pic.png';
             }
-            echo "<img height=\"150px\" src=\"$pathImg\"><br>"; // отображение картинки
+            echo "<img class= \"illustration\"   src=\"$pathImg\"><br>"; // отображение картинки
             echo "<p><b>",$row['task'], "</b></p>"; //вывод вопроса
         ?>
             <div class="form-check">
