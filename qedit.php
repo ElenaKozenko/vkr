@@ -37,9 +37,9 @@ get_session();?>
     $q_id = $_GET['q_id'];
     $n = $_GET['n']; //порядковый номер билета
 
-    $topic = getAllTopics($db);
-    $tkt = getAllTickets($db);
-    $qform = questionFormFill($db, $q_id);
+    $topic = getAllTopics($db); //из api.php
+    $tkt = getAllTickets($db); //из api.php
+    $qform = questionFormFill($db, $q_id); //из questions_query.php
     
     $pt = 'uploaded/' . $tkt_id . '_' . $q_id . '.jpg';
     if (file_exists($pt)) {

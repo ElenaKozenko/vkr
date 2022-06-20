@@ -107,7 +107,5 @@ function addNewAnswer($db, $u_id, $tkt_id){
         echo "You have an error: " . $e->getMessage() . "<br>";
         echo "On line: " . $e->getLine() . "<br>";
     }
-
 }
-
 ?>

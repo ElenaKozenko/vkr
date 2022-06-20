@@ -31,9 +31,9 @@ get_session();?>
     include 'db.php'; 
     include 'users_query.php';
     $u_id = $_GET['u_id'];
-    $instructors = getAllIstructors($db); //список преподавателей
-    $category = getAllCaterories($db);
-    $uform = userFormFill($db, $u_id); //заполнение формы пользователя  
+    $instructors = getAllIstructors($db); //список преподавателей из users_query.php
+    $category = getAllCaterories($db); //из users_query.php
+    $uform = userFormFill($db, $u_id); //заполнение формы пользователя из users_query.php
 ?>
     <div class="container">
         <form name="uedit" method="post" enctype="multipart/form-data">

@@ -30,8 +30,8 @@ get_session();?>
     include 'db.php';  
     include 'api.php';
     include 'questions_query.php';
-    $topic = getAllTopics($db);
-    $tkt = getAllTickets($db);
+    $topic = getAllTopics($db); //из api.php
+    $tkt = getAllTickets($db); //из api.php
     $tkt_id = $_GET['tkt_id'];
     $n = $_GET['n']; //порядковый номер билета
 ?>

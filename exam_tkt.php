@@ -41,7 +41,7 @@ get_session();?>
     <?php
     include 'db.php';
     include 'api.php';
-    $tickets = getAllTickets($db); ?>
+    $tickets = getAllTickets($db); //из api.php?>
 
 
     <?php

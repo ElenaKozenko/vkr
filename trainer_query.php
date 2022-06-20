@@ -77,26 +77,3 @@ for($i = 0; $i < count($arr); $i++)
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>	
 </body>
 </html>
-
-<!-- получение информации после тестирования в exam.php
-/* var_dump($_POST); 
-echo '<hr>';
-$user_ans = $_POST['body'];
-echo "ответы пользователя без json <br>";
-var_dump($user_ans);
-echo '<hr>';
-echo "ответы пользователя json <br>";
-$arr = json_decode($user_ans);
-var_dump($arr);
-
-echo '<hr>';
-echo "номер билета <br>";
-$tkt_id = $_POST['body2'];
-settype($tkt_id, "integer");
-echo $tkt_id;
-
-echo '<hr>';
-$true_answers = getTrueAns($db, $tkt_id);
-echo "массив верных ответов <br>";
-var_dump($true_answers);
-echo '<hr>';  -->

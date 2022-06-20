@@ -40,7 +40,7 @@ get_session();?>
     get_header();
     include 'db.php';
     include 'api.php';
-    $tickets = getAllTickets($db);
+    $tickets = getAllTickets($db); \\из api.php
     ?>
     <div class="container">
         <p>Нажмите на название билета, чтобы перейти к списку вопросов.</p>

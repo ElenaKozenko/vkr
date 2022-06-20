@@ -35,7 +35,7 @@ get_session();?>
     
     $tkt_id = $_GET['tkt_id'];//получение из tickets.php
     $name = $_GET['name'];
-    $que = getQuestionsByTicket($db, $tkt_id);
+    $que = getQuestionsByTicket($db, $tkt_id); //из questions_query.php
     //$tickets = getAllTickets($db);
     echo '<div class ="container"><h5 style="margin-left: 10px;"><b>'.$name.'</b></h5>';
 ?>

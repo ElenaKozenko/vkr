@@ -9,6 +9,7 @@ get_session();?>
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="pic/logo1.png" type="image/png">
     <title>Экзамен</title>
     <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
@@ -92,19 +93,19 @@ reset.onclick = function() {
         ?>
             <div class="form-check">
             <!-- вариант ответа 1 -->
-            <input type="radio" name="ans_<?php echo $n;?>" value="1" class="form-check-input"> <label class="form-check-label"> <?php echo $row['ans1'] ?> </label></div>
+            <input type="radio" name="ans_<?php echo $n;?>" id="1ans_<?php echo $n;?>" value="1" class="form-check-input"> <label for="1ans_<?php echo $n;?>" class="form-check-label"> <?php echo $row['ans1'] ?> </label></div>
             <!-- вариант ответа 2 -->
             <div class="form-check">
-            <input type="radio" name="ans_<?php echo $n;?>" value="2" class="form-check-input"> <label class="form-check-label"> <?php echo $row['ans2'] ?> </label></div>
+            <input type="radio" name="ans_<?php echo $n;?>" id="2ans_<?php echo $n;?>" value="2" class="form-check-input"> <label for="2ans_<?php echo $n;?>" class="form-check-label"> <?php echo $row['ans2'] ?> </label></div>
             <!-- вариант ответа 3 -->
             <?php if ($row['ans3'] != null) {
-                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"3\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans3'], "</label></div>"; ?>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" id=\"3ans_$n\" value=\"3\" class=\"form-check-input\"> <label for=\"3ans_$n\" class=\"form-check-label\">", $row['ans3'], "</label></div>"; ?>
             <!-- вариант ответа 4 --> 
             <?php if ($row['ans4'] != null) {  
-                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"4\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans4'], "</label></div>"; ?>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" id=\"4ans_$n\" value=\"4\" class=\"form-check-input\"> <label for=\"4ans_$n\" class=\"form-check-label\">", $row['ans4'], "</label></div>"; ?>
             <!-- вариант ответа 5 -->  
             <?php if ($row['ans5'] != null) {  
-                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" value=\"5\" class=\"form-check-input\"> <label class=\"form-check-label\">", $row['ans5'], "</label></div>"; }}} ?>
+                echo "<div class=\"form-check\"><input type=\"radio\" name=\"ans_$n\" id=\"5ans_$n\" value=\"5\" class=\"form-check-input\"> <label for=\"5ans_$n\" class=\"form-check-label\">", $row['ans5'], "</label></div>"; }}} ?>
         </div>
     </div>
 <?php
@@ -120,7 +121,7 @@ reset.onclick = function() {
         let ans = document.querySelectorAll(".test .answer"); //массив карточек
         let count = ans.length;
         nextAns();
-        function nextAns() {
+        function nextAns() { //функция переключения вопросов по кнопке Далее
             if(curAns < count){
                 curAns++;
                 for (let i = 0; i < ans.length; i++) { //если не конец теста, то переключение карточек
@@ -135,11 +136,11 @@ reset.onclick = function() {
             else{ //конец теста - сбор ответов с формы
                 let answers = [];
                 for (let i = 0; i < ans.length; i++) {
-                    const element = ans[i];
-                    let lis = element.querySelectorAll('input');
+                    const element = ans[i]; //выбор текущей карточки
+                    let lis = element.querySelectorAll('input'); //статический массив элементов input
                     let val = undefined;
                     for (let j = 0; j < lis.length; j++) {
-                        const element = lis[j];
+                        const element = lis[j]; //текущий input
                         if(element.checked){
                             val = element.value;
                         }
@@ -147,7 +148,7 @@ reset.onclick = function() {
                     answers.push(val); //запись ответов пользователя
                 }
                 const TestBody = document.getElementById('body');
-                TestBody.value = JSON.stringify(answers);
+                TestBody.value = JSON.stringify(answers); //преобразование в строку JSON
                 document.forms.form.submit();
             }
     }
@@ -159,8 +160,6 @@ reset.onclick = function() {
 .test .answer._active{
     display: block;
 }
-
 </style>
-
 </body>
 </html>

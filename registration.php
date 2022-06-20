@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 	<head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,7 +10,6 @@
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
    ym(88926432, "init", {
         clickmap:true,
         trackLinks:true,
@@ -25,7 +24,6 @@
 <div class="row">
 <div class="col-sm"></div>
 <div class="col-sm">
-
 			<form action="register_query.php" method="POST">	
 				<h4>Регистрация</h4>
 				<hr style="border-top:1px groovy #000;">
@@ -37,7 +35,6 @@
 					<label>Имя</label>
 					<input type="text" class="form-control" name="name" maxlength="30">
 				</div>
-
 				<div class="form-group">
 					<label>Отчество</label>
 					<input type="text" class="form-control" name="patr" maxlength="30">
@@ -51,17 +48,36 @@
 					<label>Пароль</label>
 					<input type="password" class="form-control" name="password" maxlength="15">
 				</div>
+				<div class="form-check">
+  					<input class="form-check-input" type="checkbox" autocomplete="off" value="false" id="Check1" onclick="checkPrivacy(this)" >
+  					<label class="form-check-label" for="Check1">
+					  Я согласен на обработку <a href="privacy-palicy.html">персональных данных</a>
+ 	 				</label>
+				</div>
 				<br />
 				<div class="form-group">
-					<button class="btn btn-primary form-control" name="register">Зарегистрироваться</button>
+					<button class="btn btn-primary form-control privacy" name="register" id="button-register" disabled title="Примите политику обработки персональных данных">Зарегистрироваться</button>
 				</div>
 				<a href="index.php">Авторизация</a>
 			</form>
 	</div>
+	
 <div class="col-sm"></div>
 </div>
 </div>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+const btnAction = document.getElementById('button-register'); //путь к кнопке
+function checkPrivacy(itm){ //функци по нажатию на чекбокс
+	btnAction.toggleAttribute('disabled', !itm.checked); //добавление атрибута неактивности
+	btnAction.setAttribute('title', !itm.checked ? 'Примите политику обработки персональных данных' : ''); //присвоить title кнопке, если флажок не нажат и наоборот
+}
+</script>
+<style>
+.btn.privacy[disabled]{
+	cursor: not-allowed;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>	
 </body>

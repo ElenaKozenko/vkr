@@ -39,7 +39,7 @@ get_session();?>
   $tkt_id = $_GET['tkt_id'];
 
   if ($q_id) {
-    deleteQuestion($db, $q_id);
+    deleteQuestion($db, $q_id); //из questions_query.php
     echo "<div class=\"container\"><h1>Вопрос удалён</h1>";
     echo "<a href=\"questions.php?tkt_id=$tkt_id\" >Вернуться к вопросам</a>";
   } else {
